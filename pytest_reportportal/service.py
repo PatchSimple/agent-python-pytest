@@ -98,16 +98,16 @@ class PyTestServiceClass(with_metaclass(Singleton, object)):
                 # verify_ssl=verify_ssl
             )
             if self.RP and hasattr(self.RP.rp_client, "get_project_settings"):
-                self.project_settiings = self.RP.rp_client.get_project_settings()
+                self.project_settings = self.RP.rp_client.get_project_settings()
             else:
-                self.project_settiings = None
+                self.project_settings = None
             self.issue_types = self.get_issue_types()
         else:
             log.debug('The pytest is already initialized')
         return self.RP
 
     def async_error_handler(self, exc_info):
-        self.terminate_service(nowait=True)
+        # self.terminate_service(nowait=True)
         self.RP = None
         self._errors.put_nowait(exc_info)
 
